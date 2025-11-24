@@ -5,11 +5,11 @@ app = Flask(__name__)
 
 @app.route('/resume')
 def resume():
-    return render_template('resume.html', title='Резюме', header='Моє резюме')
+    return render_template('resume.html', title='Резюме', header='Резюме')
 
 @app.route('/contacts')
 def contacts():
-    return render_template('contacts.html', title='Контакти', header='Мої контакти')
+    return render_template('contacts.html', title='Контакти', header='Контакти')
 
 def main():
     return render_template('resume.html', title='Резюме', header='Моє резюме')

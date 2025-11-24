@@ -3,27 +3,53 @@
 {% block head %}
     <title>{{ title }}</title>
 {% endblock %}
-
+    
 {% block body %}
+    <img src="{{ url_for('static', filename='images/logo.jpg')}}" alt="Логотип" width="50" height="100">
 
-    <section>
-        <h2>Про себе</h2>
+    <section class="mb-4 mt-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100">
+            <h5 class="card-header">Про себе</h5>
+            <div class="card-body">
+                <p>--Some info--</p>
+            </div>
+        </div>
     </section>
     
-    <section>
-        <h2>Освіта</h2>
+    <section class="mb-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100">
+            <h5 class="card-header">Освіта</h5>
+            <div class="card-body">
+                <p>--Some info--</p>
+            </div>
+        </div>
     </section>
 
-    <section>
-        <h2>Навички</h2>
+    <section class="mb-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100">
+            <h5 class="card-header">Навички</h5>
+            <div class="card-body">
+                <p>--Some info--</p>
+            </div>
+        </div>
     </section>
     
-    <section>
-        <h2>ТехнологіЇ</h2>
+    <section class="mb-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100">
+            <h5 class="card-header">ТехнологіЇ</h5>
+            <div class="card-body">
+                <p>--Some info--</p>
+            </div>
+        </div>
     </section>
     
-    <section>
-        <h2>Досвід роботи</h2>
+    <section class="mb-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100">
+            <h5 class="card-header">Досвід роботи</h5>
+            <div class="card-body">
+                <p>--Some info--</p>
+            </div>
+        </div>
     </section>
 
 {% endblock %}

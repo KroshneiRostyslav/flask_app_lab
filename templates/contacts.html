@@ -7,10 +7,27 @@
 {% block body %}
 
     <main>
-        <form action="">
+        <section class="mb-4">
+            <div class="card border-0 h-100 shadow-sm rounded-3 h-100">
+                <h5 class="card-header border-bottom">Контакти</h5>
+                <div class="card-body">
+                    <p>Електрона пошта</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-4">
+            <div class="card border-0 h-100 shadow-sm rounded-3 h-100">
+                <h5 class="card-header border-bottom">Надіслати повідомлення</h5>
+                <div class="card-body">
+                    <form action="">
             <input type="text">
             <input type="submit" value="Надіслати">        
         </form>
+                </div>
+            </div>
+        </section>
+        
     </main>
     
 {% endblock %}
