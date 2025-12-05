@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+:root{
+    --text-color: rgb(31, 31, 31);
+    --text-green: rgb(32, 211, 32);
+    --text-red: rgb(207, 34, 34);
+}
+
 * {
     font-family: 'Roboto', sans-sherif;
+    margin: 0px;
 }
 
 html, body {
@@ -13,4 +21,43 @@ body{
 
 main {
     flex: 1;
+}
+
+.top_page{
+    background-color: rgb(75, 75, 75);
+    color: rgb(233, 233, 233); 
+    padding: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin-bottom: 30px;
+}
+
+p, li, h2 {
+    padding: 5px;
+}
+
+p, li {
+    font-size: 22px;
+}
+
+li {
+    margin: 5px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--text-color);
+}
+
+.nav_link{
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.green{
+    color: var(--text-green);
+}
+
+.red {
+    color: var(--text-red);
 }

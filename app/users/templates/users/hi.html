@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Greeting Page {% endblock %}
+
+{% block body %}    
+    <h2>Hello, {{name}}</h2>
+    {% if age %}
+        <p class="green">You are {{age}} years old.</p>
+    {% else %}
+        <p class="red">Age is unknown</p>
+    {% endif %}
+{%endblock%}
