@@ -14,11 +14,13 @@
         <h1 class="top_page">Flask Application</h1>
 
         <ul>
+            <li><a class="nav_link" href="{{ url_for('home')}}"> Home </a></li>
+            <li><a class="nav_link" href="{{ url_for('users.login')}}"> Login </a></li>
+            <li><a class="nav_link" href="{{ url_for('users.profile')}}"> Profile </a></li>
+            <li><a class="nav_link" href="{{ url_for('resume')}}"> Resume </a></li>
             <li><a class="nav_link" href="{{ url_for('users.greetings', name='Jonh')}}"> Greet Jonh </a></li>
             <li><a class="nav_link" href="{{ url_for('users.admin')}}"> Admin </a></li>
             <li><a class="nav_link" href="{{ url_for('products.products')}}"> Products </a></li>
-            <li><a class="nav_link" href="{{ url_for('users.login')}}"> Login </a></li>
-            <li><a class="nav_link" href="{{ url_for('users.profile')}}"> Profile </a></li>
         </ul>
     </nav>
 

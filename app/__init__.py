@@ -5,9 +5,13 @@ app.secret_key = b'secret_key'
 
 app.config.from_pyfile(r'..\config.py')
 
-@app.route("/")
+@app.route('/')
 def home():
-    return render_template("home.html")
+    return render_template('home.html')
+
+@app.route('/resume')
+def resume():
+    return render_template('resume.html')
 
 from .users import users_bp
 from .products import products_bp
