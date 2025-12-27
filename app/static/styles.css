@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-:root{
+
+:root {
     --text-color: rgb(31, 31, 31);
     --text-green: rgb(32, 211, 32);
     --text-red: rgb(207, 34, 34);
@@ -10,11 +11,12 @@
     margin: 0px;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
-body{ 
+body {
     display: flex;
     flex-direction: column;
 }
@@ -23,9 +25,9 @@ main {
     flex: 1;
 }
 
-.top_page{
+.top_page {
     background-color: rgb(75, 75, 75);
-    color: rgb(233, 233, 233); 
+    color: rgb(233, 233, 233);
     padding: 5px;
 }
 
@@ -35,11 +37,14 @@ ul {
     margin-bottom: 30px;
 }
 
-p, li, h2 {
+p,
+li,
+h2 {
     padding: 5px;
 }
 
-p, li {
+p,
+li {
     font-size: 22px;
 }
 
@@ -49,12 +54,12 @@ li {
     border-bottom: 1px solid var(--text-color);
 }
 
-.nav_link{
+.nav_link {
     color: var(--text-color);
     text-decoration: none;
 }
 
-.green{
+.green {
     color: var(--text-green);
 }
 

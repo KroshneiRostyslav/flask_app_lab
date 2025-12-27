@@ -42,6 +42,7 @@ def profile():
         return redirect(url_for('users.login'))
 
     username = session['user']
+    color_scheme = session.get('color_scheme', 'light')
 
     if request.method == 'POST':
         action = request.form.get('action')
@@ -86,10 +87,21 @@ def profile():
             flash("Всі cookie видалено", 'success')
             return response
 
-    return render_template("users/profile.html", username=username, cookies=request.cookies)
+    return render_template(
+        "users/profile.html", 
+        username=username, 
+        cookies=request.cookies, 
+        color_scheme=color_scheme
+        )
     
 @users_bp.route('/logout')
 def logout():
     session.pop('user', None)
     flash('You have been logged out', 'success')
     return redirect(url_for('users.login'))
+
+@users_bp.route('/set_color/<scheme>')
+def set_color(scheme):
+    if scheme in ["light", "dark"]:
+        session['color_scheme'] = scheme
+    return redirect(url_for('users.profile'))
