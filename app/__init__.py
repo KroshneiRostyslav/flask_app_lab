@@ -18,7 +18,8 @@ handler = logging.FileHandler(LOG_FILE)
 formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
 handler.setFormatter(formatter)
 
-contact_logger.addHandler(handler)
+if not contact_logger.handlers:
+    contact_logger.addHandler(handler)
 
 @app.route('/')
 def home():

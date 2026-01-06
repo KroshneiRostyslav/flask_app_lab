@@ -1,5 +1,6 @@
-from flask import render_template, request, redirect, url_for, flash, session, make_response
+from flask import render_template, request, redirect, url_for, flash, session
 from . import users_bp
+from ..forms import LoginForm
 
 @users_bp.route('/hi/<string:name>')
 def greetings(name):
@@ -19,26 +20,27 @@ def login():
     testUsername = 'user'
     testPassword = 'password'
 
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        remember = form.remember.data
 
         if username == testUsername and password == testPassword:
             session['user'] = username
+            message = "запам'ятати" if remember else "не запам'ятовувати"
+            flash(f'Вхід успішний {message}', 'success')
+            return redirect(url_for('users.profile'))        
 
-            flash('Login successful', 'success')
-            
-            return redirect(url_for('users.profile'))
+        flash('Логін чи пароль невірний', 'warning')        
 
-        flash('Invalid username or password', 'danger')
-        return redirect(url_for('users.login'))
-
-    return render_template('users/login.html')
+    return render_template('users/login.html', form=form)
 
 @users_bp.route('/profile', methods=['GET', 'POST'])
 def profile():
     if 'user' not in session:
-        flash('Please login first', 'danger')
+        flash('Спочатку ввійдіть в свій аккаунт', 'danger')
         return redirect(url_for('users.login'))
 
     username = session['user']

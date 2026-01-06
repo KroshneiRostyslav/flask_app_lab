@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, SubmitField, SelectField, TextAreaField
+from wtforms import StringField, EmailField, SubmitField, SelectField, TextAreaField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, Regexp
 
 class ContactForm(FlaskForm):
@@ -52,3 +52,25 @@ class ContactForm(FlaskForm):
     )
     
     submit = SubmitField("Send")
+
+class LoginForm(FlaskForm):
+    username = StringField(
+        "Username",
+        validators=[
+            DataRequired(message="Поле обов'язкове"),
+        ]
+    )
+
+    password = PasswordField(
+        "Password",
+        validators=[
+            DataRequired(message="Поле обов'язкове"),
+            Length(min=4, max=10, message="Довжина від 4 до 10 символів")
+        ]
+    )
+
+    remember = BooleanField(
+        "Remember"
+    )
+
+    submit = SubmitField("Ввійти")
