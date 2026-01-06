@@ -1,16 +1,20 @@
 from flask import Flask, render_template, flash, redirect, url_for
 from .forms import ContactForm
-import logging
+import logging, os
 
 app = Flask(__name__)
 app.secret_key = b'secret_key'
 
 app.config.from_pyfile(r'..\config.py')
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+LOG_FILE = os.path.join(BASE_DIR, "logs", "contacts.log")
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+
 contact_logger = logging.getLogger("contact_form")
 contact_logger.setLevel(logging.INFO)
 
-handler = logging.FileHandler("contacts.log")
+handler = logging.FileHandler(LOG_FILE)
 formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
 handler.setFormatter(formatter)
 
