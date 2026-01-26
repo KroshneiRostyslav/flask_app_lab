@@ -1,60 +1,39 @@
-from flask import Flask, render_template, flash, redirect, url_for
-from .forms import ContactForm
-import logging, os
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+from .config import config_map
+from sqlalchemy.orm import DeclarativeBase
+from flask_migrate import Migrate
+import os
 
-app = Flask(__name__)
-app.secret_key = b'secret_key'
+from dotenv import load_dotenv
+load_dotenv()
 
-app.config.from_pyfile(r'..\config.py')
+class Base(DeclarativeBase):
+    pass
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOG_FILE = os.path.join(BASE_DIR, "logs", "contacts.log")
-os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+db = SQLAlchemy(model_class=Base)
+migrate = Migrate()
 
-contact_logger = logging.getLogger("contact_form")
-contact_logger.setLevel(logging.INFO)
+def create_app(config_name: str = os.environ.get("FLASK_CONFIG", "dev")) -> Flask:
+    app = Flask(__name__)
+    app.config.from_object(config_map[config_name])
+    print(f"Running in config: {config_name}")
 
-handler = logging.FileHandler(LOG_FILE)
-formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
-handler.setFormatter(formatter)
 
-if not contact_logger.handlers:
-    contact_logger.addHandler(handler)
+    db.init_app(app)
+    migrate.init_app(app, db)
 
-@app.route('/')
-def home():
-    return render_template('home.html')
+    with app.app_context(): 
+        from .views import main as main_blueprint
+        app.register_blueprint(main_blueprint)
 
-@app.route('/resume')
-def resume():
-    return render_template('resume.html')
+        if config_name == "test":
+            print("Registered routes:")
+            for rule in app.url_map.iter_rules():
+                print(rule)
+     
+    @app.errorhandler(404)
+    def not_found(e):
+        return render_template('404.html'), 404
 
-@app.route('/contacts', methods=["GET", "POST"])
-def contacts():
-    form = ContactForm()
-
-    if form.validate_on_submit():
-        try:
-            contact_logger.info(
-                "Name=%s | Email=%s | Phone=%s | Subject=%s | Message=%s",
-                form.name.data,
-                form.email.data,
-                form.phone_number.data,
-                form.subject.data,
-                form.message.data
-            )
-
-            flash(f"Повідомлення від {form.name.data} {form.email.data} успішно надіслано", "success")
-        except Exception as e:
-            contact_logger.error("Logging failed: %s", e)
-
-            flash("Сталась помилка при обробленні даних", "danger")
-
-        return redirect(url_for('contacts'))
-        
-    return render_template('contacts.html', form=form)
-
-from .users import users_bp
-from .products import products_bp
-app.register_blueprint(users_bp)
-app.register_blueprint(products_bp)
+    return app

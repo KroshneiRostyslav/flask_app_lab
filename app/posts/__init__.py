@@ -1,7 +1,7 @@
 from flask import Blueprint
 
-products_bp = Blueprint(
-    "products",
+posts_bp = Blueprint(
+    "posts",
     __name__,
     url_prefix="/",
     template_folder="templates"
