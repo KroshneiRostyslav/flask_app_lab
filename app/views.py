@@ -8,6 +8,5 @@ def index():
 
 @main.route('/homepage') 
 def home():
-    """View for the Home page of your website."""
     user_agent = str(request.user_agent)[:10]
     return render_template("base.html", agent=user_agent)

@@ -1,7 +1,6 @@
 from app import create_app
 
-app = create_app(config_name="prod")
-
+app = create_app(config_name="dev")
 
 print(
     f"App initialized with config: "
