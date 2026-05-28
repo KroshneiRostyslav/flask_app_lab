@@ -5,7 +5,8 @@ import logging, os
 app = Flask(__name__)
 app.secret_key = b'secret_key'
 
-app.config.from_object(config_map[config_name])
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config.from_pyfile(os.path.join(basedir, "..", "config.py"))
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_FILE = os.path.join(BASE_DIR, "logs", "contacts.log")
