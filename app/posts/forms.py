@@ -1,76 +1,33 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, SubmitField, SelectField, TextAreaField, PasswordField, BooleanField
-from wtforms.validators import DataRequired, Email, Length, Regexp
+from wtforms import (
+    StringField,
+    TextAreaField,
+    SelectField,
+    SubmitField
+)
 
-class ContactForm(FlaskForm):
-    name = StringField(
-        "Name",
-        validators=[
-            DataRequired(message="Ім'я обов'язкове"),
-            Length(min=4, max=10, message="Від 4 до 10 символів")
-        ]
+from wtforms.validators import DataRequired
+
+class PostForm(FlaskForm):
+
+    title = StringField(
+        "Title",
+        validators=[DataRequired()]
     )
 
-    email = EmailField(
-        "Email",
-        validators=[
-            DataRequired(message="Email обов'язковий"),
-            Email(message="Некоректний email")
-        ]
+    content = TextAreaField(
+        "Content",
+        validators=[DataRequired()]
     )
-    
-    phone_number = StringField(
-        "Phone Number",
-        validators=[
-            DataRequired(message="Номер телефону обов'язковий"),
-            Regexp(
-                r'^\+380\d{9}$',
-                message="Введіть дійсний номер телефону"
-            )
-        ]
-    )
-    
-    subject = SelectField(
-        "Subject",
-        validators=[DataRequired(message="Виберіть тему")],
+
+    category = SelectField(
+        "Category",
         choices=[
-            ("", "-Select subject-"),
-            ("question", "Question"),
-            ("support", "Support"),
-            ("feedback", "Feedback"),
-            ("bug_report", "Report a Bug"),
+            ("news", "News"),
+            ("publication", "Publication"),
+            ("tech", "Tech"),
             ("other", "Other")
         ]
     )
 
-    message = TextAreaField(
-        "Message",
-        validators=[
-            DataRequired(message="Повідомлення обов'язкове"),
-            Length(max=500, message="Максимальна довжина 500 символів")
-        ]
-    )
-    
-    submit = SubmitField("Send")
-
-class LoginForm(FlaskForm):
-    username = StringField(
-        "Username",
-        validators=[
-            DataRequired(message="Поле обов'язкове"),
-        ]
-    )
-
-    password = PasswordField(
-        "Password",
-        validators=[
-            DataRequired(message="Поле обов'язкове"),
-            Length(min=4, max=10, message="Довжина від 4 до 10 символів")
-        ]
-    )
-
-    remember = BooleanField(
-        "Remember"
-    )
-
-    submit = SubmitField("Ввійти")
+    submit = SubmitField("Save")

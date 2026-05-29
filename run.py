@@ -1,12 +1,6 @@
 from app import create_app
 
-app = create_app(config_name="dev")
-
-print(
-    f"App initialized with config: "
-    f"DB={app.config['SQLALCHEMY_DATABASE_URI']}, "
-    f"SECRET_KEY=***"
-)
+app = create_app("development")
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
