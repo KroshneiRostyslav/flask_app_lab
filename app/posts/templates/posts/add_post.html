@@ -32,6 +32,16 @@ Add Post
         {{ form.category(class="form-select") }}
     </div>
 
+    <div class="mb-3">
+        {{ form.author.label(class="form-label") }}
+        {{ form.author(class="form-select") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.tags.label(class="form-label") }}
+        {{ form.tags(class="form-select", multiple=True) }}
+    </div>
+    
     {{ form.submit(class="btn btn-success") }}
 
 </form>

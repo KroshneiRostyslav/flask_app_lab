@@ -7,8 +7,9 @@ from flask import (
 )
 
 from app.posts import post_bp
-from app.posts.models import Post
+from app.posts.models import Post, Tag
 from app.posts.forms import PostForm
+from app.posts.users import User
 from app import db
 
 @post_bp.route("/")
@@ -34,14 +35,29 @@ def create_post():
 
     form = PostForm()
 
-    if form.validate_on_submit():
+    form.author.choices = [
+        (u.id, u.username)
+        for u in User.query.all()
+    ]
 
+    form.tags.choices = [
+        (t.id, t.name)
+        for t in Tag.query.all()
+    ]
+
+    if form.validate_on_submit():
         post = Post(
             title=form.title.data,
             content=form.content.data,
             category=form.category.data,
-            author="Anonymous"
+            author_id=form.author.data
         )
+
+        selected_tags = Tag.query.filter(
+            Tag.id.in_(form.tags.data)
+        ).all()
+
+        post.tags = selected_tags
 
         db.session.add(post)
         db.session.commit()
@@ -73,11 +89,35 @@ def update_post(id):
 
     form = PostForm(obj=post)
 
+    form.author.choices = [
+        (u.id, u.username)
+        for u in User.query.all()
+    ]
+
+    form.tags.choices = [
+        (t.id, t.name)
+        for t in Tag.query.all()
+    ]
+
+    if request.method == "GET":
+        form.author.data = post.author_id
+        form.tags.data = [tag.id for tag in post.tags]
+
     if form.validate_on_submit():
 
         post.title = form.title.data
         post.content = form.content.data
         post.category = form.category.data
+        post.author_id = form.author.data
+
+        post.tags.clear()
+
+        selected_tags = Tag.query.filter(
+            Tag.id.in_(form.tags.data)
+        ).all()
+
+        for tag in selected_tags:
+            post.tags.append(tag)
 
         db.session.commit()
 

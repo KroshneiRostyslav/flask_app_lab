@@ -29,10 +29,14 @@ def create_app(config_name="development"):
     migrate.init_app(app, db)
 
     from app.posts import post_bp
+    
     app.register_blueprint(
         post_bp,
         url_prefix="/posts"
     )
+
+    from app.posts.models import Post
+    from app.posts.users import User    
 
     @app.errorhandler(404)
     def not_found(error):

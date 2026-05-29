@@ -3,10 +3,13 @@ from wtforms import (
     StringField,
     TextAreaField,
     SelectField,
+    SelectMultipleField,
     SubmitField
 )
 
 from wtforms.validators import DataRequired
+from app.posts.users import User
+from app.posts.models import Tag
 
 class PostForm(FlaskForm):
 
@@ -30,4 +33,14 @@ class PostForm(FlaskForm):
         ]
     )
 
+    author = SelectField(
+        "Author",
+        coerce=int
+    )
+
+    tags = SelectMultipleField(
+        "Tags",
+        coerce=int
+    )
+    
     submit = SubmitField("Save")
